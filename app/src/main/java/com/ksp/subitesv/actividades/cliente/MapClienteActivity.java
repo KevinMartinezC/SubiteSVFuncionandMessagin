@@ -252,7 +252,7 @@ public class MapClienteActivity extends AppCompatActivity implements OnMapReadyC
     }
 
     private void obtenerConductoresActivos() {
-        mProveedorGeofire.obtenerConductoresActivos(mLatLngActual).addGeoQueryEventListener(new GeoQueryEventListener() {
+        mProveedorGeofire.obtenerConductoresActivos(mLatLngActual,10).addGeoQueryEventListener(new GeoQueryEventListener() {
             @Override
             public void onKeyEntered(String key, GeoLocation location) {
                 //Marcadores de conductores que se conecten
@@ -469,5 +469,8 @@ public class MapClienteActivity extends AppCompatActivity implements OnMapReadyC
         Intent intent= new Intent(MapClienteActivity.this, MainActivity.class);
         startActivity(intent);
         finish();
+    }
+    void generarToken(){
+
     }
 }

@@ -2,9 +2,12 @@ package com.ksp.subitesv.actividades.cliente;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -53,6 +56,8 @@ public class DetallesSolicitudActivity extends AppCompatActivity implements OnMa
     private TextView mTextViewTime;
     private TextView mTextViewDistance;
 
+    private Button mButtonRequest;
+
     private String mExtraOrigin;
     private String mExtraDestination;
     @Override
@@ -81,9 +86,25 @@ public class DetallesSolicitudActivity extends AppCompatActivity implements OnMa
         mTextViewDestination = findViewById(R.id.textViewDestination);
         mTextViewTime = findViewById(R.id.textViewTime);
         mTextViewDistance = findViewById(R.id.textViewDistance);
+        mButtonRequest = findViewById(R.id.btnRequestNow);
 
         mTextViewOrigin.setText(mExtraOrigin);
         mTextViewDestination.setText(mExtraDestination);
+
+        mButtonRequest.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                goToRequestDriver();
+            }
+        });
+    }
+
+    private void goToRequestDriver() {
+        Intent intent = new Intent(DetallesSolicitudActivity.this, SolicitarConductorActivity.class);
+        intent.putExtra("origin_lat", mOriginLatLng.latitude);
+        intent.putExtra("origin_lng", mOriginLatLng.longitude);
+        startActivity(intent);
+        finish();
     }
 
     private void drawRoute() {
