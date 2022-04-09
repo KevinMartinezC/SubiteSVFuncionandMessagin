@@ -16,15 +16,22 @@ public class TokenProveedor {
 
 
     public TokenProveedor() {
-       mBasedeDatos = FirebaseDatabase.getInstance().getReference().child("Tokens");//Creacion de nodo
+        mBasedeDatos = FirebaseDatabase.getInstance().getReference().child("Tokens");//Creacion de nodo
     }
-    public  void crear(){
-       FirebaseMessaging.getInstance().getToken().addOnSuccessListener(new OnSuccessListener<String>() {
-           @Override
-           public void onSuccess(String s) {
-               Token token = new Token(s);
-           }
-       });
+
+    public void crear(final String idUsuario) {
+
+        if (idUsuario == null) return;
+        FirebaseMessaging.getInstance().getToken().addOnSuccessListener(new OnSuccessListener<String>() {
+            @Override
+            public void onSuccess(String s) {
+                Token token = new Token(s);
+                mBasedeDatos.child(idUsuario).setValue(token);
+            }
+        });
+    }
+    public DatabaseReference obtenerToken(String idUsuario){
+        return mBasedeDatos.child(idUsuario);
     }
 
 }
