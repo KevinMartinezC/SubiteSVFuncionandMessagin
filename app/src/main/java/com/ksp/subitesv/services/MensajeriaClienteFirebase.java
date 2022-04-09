@@ -51,7 +51,9 @@ public class MensajeriaClienteFirebase extends FirebaseMessagingService {
 
     @RequiresApi(api = Build.VERSION_CODES.O)
     private void showNotificacionApiOreo(String title, String body) {
-        PendingIntent intent = PendingIntent.getActivity(getBaseContext(), 0, new Intent(), PendingIntent.FLAG_ONE_SHOT);
+        PendingIntent intent= PendingIntent.getBroadcast(getBaseContext(), 0, new Intent(), PendingIntent.FLAG_UPDATE_CURRENT |
+                PendingIntent.FLAG_IMMUTABLE);
+        //PendingIntent intent = PendingIntent.getActivity(getBaseContext(), 0, new Intent(), PendingIntent.FLAG_ONE_SHOT);
         Uri sonido = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
         NotificacionHelper notificacionHelper = new NotificacionHelper(getBaseContext());
         Notification.Builder builder = notificacionHelper.obtenerNotificacion(title, body, intent, sonido);
